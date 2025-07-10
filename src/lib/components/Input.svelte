@@ -7,6 +7,7 @@
   export let value = "";
   export let label = "";
   export let className = "";
+  export let disabled = false;
 
   const {
     elements: { root },
@@ -28,6 +29,9 @@
     {type}
     bind:value
     {placeholder}
-    class={`h-10 w-full px-4 py-2 text-sm  ${className}`}
+    {disabled}
+    class={`h-10 w-full px-4 py-2 text-sm border border-gray-300 rounded-md
+      ${disabled ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "bg-white text-gray-800"}
+      ${className}`}
   />
 </div>

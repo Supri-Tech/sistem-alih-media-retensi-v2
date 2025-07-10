@@ -5,43 +5,29 @@
   import Button from "$components/Button.svelte";
   import SearchBar from "$components/SearchBar.svelte";
   import Input from "$components/Input.svelte";
+  import ActionDropdown from "$components/ActionDropdown.svelte";
+
+  import DetailModal from "$lib/components/DetailModal.svelte";
+
+  import {
+    alihMediaData,
+    alihMediaColumns as columns,
+  } from "$data/alihMediaData.js";
 
   let keywordRM = "";
   let keywordNama = "";
-
-  const columns = [
-    { label: "No", key: "no" },
-    { label: "Nomor RM", key: "nomor_rm" },
-    { label: "Nama Pasien", key: "nama_pasien" },
-    { label: "Tanggal Laporan", key: "tanggal_laporan" },
-    { label: "Status", key: "status" },
-  ];
-
-  let alihMediaData = [
-    {
-      no: 1,
-      nomor_rm: "RM-20230701",
-      nama_pasien: "Siti Aminah",
-      tanggal_laporan: "08-07-2025",
-      status: "Diproses",
-    },
-    {
-      no: 2,
-      nomor_rm: "RM-20230702",
-      nama_pasien: "Budi Santoso",
-      tanggal_laporan: "08-07-2025",
-      status: "Selesai",
-    },
-    {
-      no: 3,
-      nomor_rm: "RM-20230703",
-      nama_pasien: "Nur Hidayah",
-      tanggal_laporan: "07-07-2025",
-      status: "Menunggu",
-    },
-  ];
-
   let currentPage = 1;
+  let showModal = false;
+
+  function onAction({ detail }) {
+    if (detail.name === "detail") {
+      showModal = false;
+      setTimeout(() => {
+        showModal = true;
+      }, 0);
+    }
+  }
+
   function handleSearch() {
     console.log("Cari:", keywordRM, keywordNama);
   }
@@ -137,12 +123,84 @@
     </SearchBar>
 
     <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-      <Table
-        {columns}
-        data={alihMediaData}
-        showAction={true}
-        showStatus={true}
-      />
+      <Table {columns} data={alihMediaData} showAction={true} showStatus={true}>
+        <svelte:fragment slot="status" let:row />
+
+        <svelte:fragment slot="action" let:row>
+          <ActionDropdown on:action={onAction} showLeft={true}>
+            <svelte:fragment slot="main" let:handleAction>
+              <li>
+                <Button
+                  on:click={() => handleAction("detail")}
+                  variant="secondary"
+                  menuItem
+                  full
+                  size="md"
+                  rounded="none"
+                >
+                  Detail
+                </Button>
+              </li>
+              <li>
+                <a href="/transaksi/alihmedia/formulir?id=RM-20230002">
+                  <Button
+                    on:click={() => handleAction("update")}
+                    variant="secondary"
+                    menuItem
+                    full
+                    size="md"
+                    rounded="none"
+                  >
+                    Update
+                  </Button>
+                </a>
+              </li>
+              <li>
+                <Button
+                  on:click={() => handleAction("delete")}
+                  variant="secondary"
+                  class="text-red-500 hover:text-red-600"
+                  menuItem
+                  full
+                  size="md"
+                  rounded="none"
+                >
+                  Hapus
+                </Button>
+              </li>
+            </svelte:fragment>
+
+            <svelte:fragment slot="sub" let:handleAction>
+              <li>
+                <Button
+                  on:click={() => handleAction("aktif")}
+                  variant="secondary"
+                  menuItem
+                  full
+                  size="md"
+                  rounded="none"
+                >
+                  Aktif
+                </Button>
+              </li>
+              <li>
+                <Button
+                  on:click={() => handleAction("nonaktif")}
+                  variant="secondary"
+                  menuItem
+                  full
+                  size="md"
+                  rounded="none"
+                >
+                  Tidak Aktif
+                </Button>
+              </li>
+            </svelte:fragment>
+          </ActionDropdown>
+        </svelte:fragment>
+      </Table>
+
+      <DetailModal bind:open={showModal} onClose={() => (showModal = false)} />
     </div>
 
     <div class="pt-4">

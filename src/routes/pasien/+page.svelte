@@ -4,68 +4,19 @@
   import Table from "$components/Table.svelte";
   import Pagination from "$components/Pagination.svelte";
   import Button from "$components/Button.svelte";
-
   import SearchBar from "$components/SearchBar.svelte";
   import Input from "$components/Input.svelte";
+
+  import { pasienColumns as columns, pasienData } from "$data/pasienData.js";
 
   let keyword1 = "";
   let keyword2 = "";
   let keyword3 = "";
+  let currentPage = 1;
 
   function handleSearch() {
     console.log("Kata kunci:", keyword1, keyword2, keyword3);
   }
-
-  const columns = [
-    { label: "No", key: "no" },
-    { label: "Nomor RM", key: "nomor_rm" },
-    { label: "Nama Pasien", key: "nama_pasien" },
-    { label: "Jenis Kelamin", key: "jenis_kelamin" },
-    { label: "Tanggal Masuk", key: "tanggal_masuk" },
-  ];
-  let pasienData = [
-    {
-      no: 1,
-      nomor_rm: "RM-20230701",
-      nama_pasien: "Siti Aminah",
-      jenis_kelamin: "Perempuan",
-      tanggal_masuk: "10-03-2012",
-      status: "Rawat Jalan",
-    },
-    {
-      no: 2,
-      nomor_rm: "RM-20230702",
-      nama_pasien: "Budi Santoso",
-      jenis_kelamin: "Laki-laki",
-      tanggal_masuk: "10-03-2012",
-      status: "Rawat Inap",
-    },
-    {
-      no: 3,
-      nomor_rm: "RM-20230703",
-      nama_pasien: "Nur Hidayah",
-      jenis_kelamin: "Perempuan",
-      tanggal_masuk: "10-03-2012",
-      status: "Selesai",
-    },
-    {
-      no: 4,
-      nomor_rm: "RM-20230704",
-      nama_pasien: "Agus Salim",
-      jenis_kelamin: "Laki-laki",
-      tanggal_masuk: "10-03-2012",
-      status: "Rujukan",
-    },
-    {
-      no: 5,
-      nomor_rm: "RM-20230705",
-      nama_pasien: "Linda Maulida",
-      jenis_kelamin: "Perempuan",
-      tanggal_masuk: "10-03-2012",
-      status: "Rawat Jalan",
-    },
-  ];
-  let currentPage = 1;
 
   function handlePageChange(page) {
     currentPage = page;
@@ -121,8 +72,9 @@
             </div>
           </div>
 
-          <Button variant="emerald">Tambah Pasien</Button>
-
+          <a href="/pasien/formulir">
+            <Button variant="emerald">Tambah Pasien</Button>
+          </a>
           <Button variant="light">Cari Pasien</Button>
         </div>
       </div>

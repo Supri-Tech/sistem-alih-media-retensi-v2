@@ -1,10 +1,21 @@
 <script>
-  import ActionDropdown from "$components/ActionDropdown.svelte";
-
   export let columns = [];
   export let data = [];
   export let showAction = false;
   export let showStatus = false;
+  export let showIndex = true;
+
+  // Function to determine the status class based on status value
+  function getStatusClass(status) {
+    switch (status) {
+      case "Aktif":
+        return "bg-emerald-100 text-emerald-700";
+      case "Tidak Aktif":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-600";
+    }
+  }
 </script>
 
 <table class="min-w-full text-sm text-gray-800">
@@ -12,6 +23,9 @@
     class="bg-gray-100 text-left uppercase text-xs tracking-wider text-emerald-700"
   >
     <tr>
+      {#if showIndex}
+        <th class="px-6 py-3">No</th>
+      {/if}
       {#each columns as col}
         <th class="px-6 py-3">{col.label}</th>
       {/each}
@@ -25,8 +39,12 @@
   </thead>
 
   <tbody class="divide-y divide-gray-200">
-    {#each data as row}
+    {#each data as row, index}
       <tr class="hover:bg-gray-100 transition">
+        {#if showIndex}
+          <td class="px-6 py-4 text-gray-600">{index + 1}</td>
+        {/if}
+
         {#each columns as col}
           <td class="px-6 py-4">{row[col.key]}</td>
         {/each}
@@ -34,22 +52,7 @@
         {#if showStatus}
           <td class="px-6 py-4 text-center">
             <span
-              class="inline-block text-xs font-medium px-2 py-1 rounded-full
-                {row.status === 'Aktif'
-                ? 'bg-emerald-100 text-emerald-700'
-                : ''}
-                {row.status === 'Pending'
-                ? 'bg-yellow-100 text-yellow-700'
-                : ''}
-                {row.status === 'Tidak Aktif' ? 'bg-red-100 text-red-700' : ''}
-                {row.status === 'Rawat Jalan'
-                ? 'bg-emerald-100 text-emerald-700'
-                : ''}
-                {row.status === 'Rawat Inap' ? 'bg-blue-100 text-blue-700' : ''}
-                {row.status === 'Selesai' ? 'bg-gray-200 text-gray-700' : ''}
-                {row.status === 'Rujukan'
-                ? 'bg-yellow-100 text-yellow-800'
-                : ''}"
+              class={`inline-block text-xs font-medium px-2 py-1 rounded-full ${getStatusClass(row.status)}`}
             >
               {row.status}
             </span>
@@ -58,7 +61,7 @@
 
         {#if showAction}
           <td class="px-6 py-4 text-center">
-            <ActionDropdown />
+            <slot name="action" {row} />
           </td>
         {/if}
       </tr>

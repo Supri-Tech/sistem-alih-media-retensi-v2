@@ -7,49 +7,17 @@
   import SearchBar from "$components/SearchBar.svelte";
   import Input from "$components/Input.svelte";
 
+  import {
+    kategoriColumns as columns,
+    kategoriData,
+  } from "$data/kategoriData.js";
+
   let keyword1 = "";
+  let currentPage = 1;
 
   function handleSearch() {
     console.log("Kata kunci:", keyword1, keyword2, keyword3);
   }
-
-  const columns = [
-    { label: "No", key: "no" },
-    { label: "Kategori Kasus", key: "kategori" },
-    { label: "Masa Aktif RI", key: "aktif_ri" },
-    { label: "Masa Inaktif RI", key: "inaktif_ri" },
-    { label: "Masa Aktif RJ", key: "aktif_rj" },
-    { label: "Masa Inaktif RJ", key: "inaktif_rj" },
-  ];
-
-  let kategoriData = [
-    {
-      no: 1,
-      kategori: "Penyakit Dalam",
-      aktif_ri: "5 Tahun",
-      inaktif_ri: "2 Tahun",
-      aktif_rj: "3 Tahun",
-      inaktif_rj: "1 Tahun",
-    },
-    {
-      no: 2,
-      kategori: "Bedah Umum",
-      aktif_ri: "4 Tahun",
-      inaktif_ri: "2 Tahun",
-      aktif_rj: "3 Tahun",
-      inaktif_rj: "1 Tahun",
-    },
-    {
-      no: 3,
-      kategori: "Anak",
-      aktif_ri: "6 Tahun",
-      inaktif_ri: "3 Tahun",
-      aktif_rj: "4 Tahun",
-      inaktif_rj: "2 Tahun",
-    },
-  ];
-
-  let currentPage = 1;
 
   function handlePageChange(page) {
     currentPage = page;
@@ -77,7 +45,9 @@
       <div class="flex items-center gap-4 mt-4">
         <div class="text-4xl font-bold text-emerald-600">12</div>
         <div class="flex flex-wrap items-center gap-2">
-          <Button variant="emerald">Tambah Kategori</Button>
+          <a href="/kategori/formulir">
+            <Button variant="emerald">Tambah Kategori</Button>
+          </a>
 
           <Button variant="dark">Cari Kategori</Button>
         </div>

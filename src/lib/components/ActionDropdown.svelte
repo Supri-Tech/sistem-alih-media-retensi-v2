@@ -1,61 +1,105 @@
 <script>
-  import { createDropdownMenu, melt } from "@melt-ui/svelte";
   import Icon from "@iconify/svelte";
+  import { createEventDispatcher } from "svelte";
 
-  const {
-    elements: { trigger, content, item, arrow },
-    states: { open },
-  } = createDropdownMenu();
+  export let showLeft = false;
+
+  let isMainOpen = false;
+  let isSubOpen = false;
+  let submenuEl;
+  let closeTimeout;
+
+  const dispatch = createEventDispatcher();
+
+  function openMain() {
+    clearTimeout(closeTimeout);
+    isMainOpen = true;
+  }
+
+  function closeMain() {
+    closeTimeout = setTimeout(() => {
+      isMainOpen = false;
+      isSubOpen = false;
+    }, 200);
+  }
+
+  function openSub() {
+    clearTimeout(closeTimeout);
+    isSubOpen = true;
+    adjustSubmenuPosition();
+  }
+
+  function closeSub() {
+    closeTimeout = setTimeout(() => {
+      isSubOpen = false;
+    }, 200);
+  }
+
+  function adjustSubmenuPosition() {
+    if (!submenuEl || showLeft) return;
+    const rect = submenuEl.getBoundingClientRect();
+    if (rect.right > window.innerWidth) {
+      submenuEl.classList.remove("left-full", "ml-1");
+      submenuEl.classList.add("right-full", "mr-1");
+    } else {
+      submenuEl.classList.remove("right-full", "mr-1");
+      submenuEl.classList.add("left-full", "ml-1");
+    }
+  }
+
+  function handleAction(name) {
+    dispatch("action", { name });
+    isMainOpen = false;
+    isSubOpen = false;
+  }
 </script>
 
-<div class="relative inline-block text-left">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+  class="relative inline-block text-left"
+  on:mouseenter={openMain}
+  on:mouseleave={closeMain}
+>
   <button
-    use:trigger
     class="text-gray-500 hover:text-emerald-600 transition p-1"
     aria-label="Aksi"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-5 w-5 mx-auto"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      stroke-width="2"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M12 6v.01M12 12v.01M12 18v.01"
-      />
-    </svg>
+    <Icon icon="mdi:dots-vertical" class="w-5 h-5" />
   </button>
 
-  {#if $open}
+  {#if isMainOpen}
     <div
-      use:content
-      class="absolute right-0 z-50 mt-2 w-36 origin-top-right rounded-md border border-gray-200 bg-white shadow-lg"
+      class="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md border border-gray-200 bg-white shadow-md divide-y divide-gray-200"
     >
       <ul class="py-1 text-sm text-gray-700">
-        <li>
-          <button use:item class="w-full text-left px-4 py-2 hover:bg-gray-100">
-            Detail
-          </button>
-        </li>
-        <li>
-          <button use:item class="w-full text-left px-4 py-2 hover:bg-gray-100">
-            Update
-          </button>
-        </li>
-        <li>
-          <button
-            use:item
-            class="w-full text-left px-4 py-2 text-red-500 hover:text-red-600 hover:bg-gray-100"
+        <slot name="main" {handleAction} />
+      </ul>
+
+      <ul class="py-1 text-sm text-gray-700">
+        <li class="relative" on:mouseenter={openSub} on:mouseleave={closeSub}>
+          <div
+            class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 cursor-pointer"
           >
-            Hapus
-          </button>
+            <span>Aktivasi</span>
+            <Icon icon="mdi:chevron-right" class="w-4 h-4 text-gray-400" />
+          </div>
+
+          {#if isSubOpen}
+            <div
+              bind:this={submenuEl}
+              class="absolute top-0 w-48 rounded-md border border-gray-200 bg-white shadow-md transition-all"
+              class:left-full={!showLeft}
+              class:ml-1={!showLeft}
+              class:right-full={showLeft}
+              class:mr-1={showLeft}
+            >
+              <ul class="py-1 text-sm text-gray-700">
+                <slot name="sub" {handleAction} />
+              </ul>
+            </div>
+          {/if}
         </li>
       </ul>
-      <div use:arrow />
     </div>
   {/if}
 </div>

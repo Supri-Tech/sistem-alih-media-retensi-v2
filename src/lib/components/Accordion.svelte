@@ -48,7 +48,7 @@
             class={`group flex items-center gap-2 px-2.5 py-2 rounded-md text-sm
               ${
                 $page.url.pathname === child.href
-                  ? "bg-emerald-600/10 text-emerald-600 font-semibold"
+                  ? "bg-emerald-600/10 text-emerald-600 "
                   : "text-gray-600 hover:bg-gray-100 hover:text-emerald-600"
               }`}
           >
