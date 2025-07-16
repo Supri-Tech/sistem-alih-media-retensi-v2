@@ -3,13 +3,18 @@ export const sidebarRoute = [
     label: "Beranda",
     icon: "mdi:view-dashboard-outline",
     href: "/beranda",
+    roles: ["admin", "superadmin"]
   },
-  { label: "Pasien", icon: "mdi:file-document-outline", href: "/pasien" },
-  { label: "Kategori Kasus", icon: "mdi:shape-outline", href: "/kategori" },
+  {
+    label: "Pasien", icon: "mdi:file-document-outline", href: "/pasien",
+    roles: ["admin", "superadmin"]
+  },
+  { label: "Kategori Kasus", icon: "mdi:shape-outline", href: "/kategori", roles: ["admin", "superadmin"] },
   {
     label: "Transaksi",
     icon: "mdi:swap-horizontal",
     id: "transaksi",
+    roles: ["admin", "superadmin"],
     children: [
       {
         label: "Alih Media",
@@ -28,13 +33,20 @@ export const sidebarRoute = [
       },
     ],
   },
-  { label: "Laporan", icon: "mdi:file-chart-outline", href: "/laporan" },
+  {
+    label: "Laporan", icon: "mdi:file-chart-outline", href: "/laporan",
+    roles: ["admin", "superadmin"]
+  },
   {
     label: "Pengaturan",
     icon: "mdi:account-cog-outline",
     href: "/pengaturan",
-    bottom: true,
+    roles: ["superadmin"],
+    bottom: true
   },
-  { label: "Riwayat", icon: "mdi:history", href: "/riwayat", bottom: true },
-  { label: "Keluar", icon: "mdi:logout", href: "/logout", bottom: true },
+  {
+    label: "Riwayat", icon: "mdi:history", href: "/riwayat",
+    roles: ["superadmin"], bottom: true
+  },
+  { label: "Keluar", icon: "mdi:logout", href: "/logout", roles: ["admin", "superadmin"], bottom: true },
 ];

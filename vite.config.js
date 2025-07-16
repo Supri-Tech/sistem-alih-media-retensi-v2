@@ -5,6 +5,7 @@ import path from 'path';
 
 
 export default defineConfig({
+	logLevel: 'error',
 	plugins: [tailwindcss(), sveltekit()],
 	resolve: {
 		alias: {
@@ -14,7 +15,8 @@ export default defineConfig({
 			$stores: path.resolve('./src/lib/stores'),
 			$views: path.resolve('./src/lib/views'),
 			$utils: path.resolve('./src/lib/utils'),
-			$data: path.resolve('./src/lib/data')
+			$data: path.resolve('./src/lib/data'),
+			$route: path.resolve('./src/lib/route'),
 		}
 	}
 });

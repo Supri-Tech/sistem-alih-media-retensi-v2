@@ -149,7 +149,7 @@
         <canvas
           bind:this={canvasAlihMediaBar}
           class="absolute inset-0 w-full h-full"
-        />
+        ></canvas>
       </div>
     </div>
 
@@ -174,7 +174,7 @@
         <canvas
           bind:this={canvasRetensiBar}
           class="absolute inset-0 w-full h-full"
-        />
+        ></canvas>
       </div>
     </div>
 
@@ -201,7 +201,7 @@
         <canvas
           bind:this={canvasPemusnahanBar}
           class="absolute inset-0 w-full h-full"
-        />
+        ></canvas>
       </div>
     </div>
 
@@ -228,7 +228,7 @@
         <canvas
           bind:this={canvasLaporanLine}
           class="absolute inset-0 w-full h-full"
-        />
+        ></canvas>
       </div>
     </div>
   </div>

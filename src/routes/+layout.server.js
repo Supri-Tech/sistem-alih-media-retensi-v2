@@ -1,11 +1,15 @@
 import { env } from '$env/dynamic/public';
 
-export const load = async () => {
+/** @type {import('./$types').LayoutServerLoad} */
+export const load = async ({ cookies }) => {
+  // const role = cookies.get('role') || null;
+
   return {
+    // role,
     appConfig: {
-      title: env.VITE_PUBLIC_SITE_TITLE || 'Sistem Alih Media & Retensi',
-      logoPath: env.VITE_PUBLIC_LOGO_PATH || '/logo.jpg',
-      description: env.VITE_PUBLIC_SITE_DESCRIPTION || 'Sistem untuk manajemen dokumen'
+      title: env.PUBLIC_SITE_TITLE || 'Sistem Alih Media & Retensi',
+      logoPath: env.PUBLIC_LOGO_PATH || '/logo.jpg',
+      description: env.PUBLIC_SITE_DESCRIPTION || 'Sistem untuk manajemen dokumen'
     }
   };
 };

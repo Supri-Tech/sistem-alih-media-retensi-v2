@@ -1,6 +1,6 @@
 <script>
   import Accordion from "$components/Accordion.svelte";
-  import { sidebarRoute } from "$data/sidebarRoute";
+  import { sidebarRoute } from "$route/sidebarRoute";
   import { sidebarOpen } from "$stores/sidebar";
   import { page } from "$app/stores";
   import Icon from "@iconify/svelte";

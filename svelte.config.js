@@ -13,7 +13,7 @@ const config = {
   },
   compilerOptions: {
     dev: true,
-    css: true,
+    css: 'injected',
     enableSourcemap: true,
   }
 };
