@@ -26,10 +26,10 @@ jobs:
 
             - name: Prepare deploy dir
               run: |
-                  mkdir -p ./deploy
-                  cp -r build ./deploy/
-                  cp package.json ./deploy/
-                  cp package-lock.json ./deploy/
+                  # mkdir -p ./deploy
+                  # cp -r build ./deploy/
+                  cp package.json /var/www/fe-alih-media
+                  cp package-lock.json /var/www/fe-alih-media
 
             - name: Create target directory on VPS
               uses: appleboy/ssh-action@master
@@ -48,7 +48,7 @@ jobs:
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SECRET }}
                   port: 22
-                  source: "deploy"
+                  source: "build"
                   target: /var/www/fe-alih-media
             # - name: Upload built app
             #   uses: appleboy/scp-action@v0.1.4
