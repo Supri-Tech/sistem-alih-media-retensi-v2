@@ -11,18 +11,20 @@
 </script>
 
 <form
-  class="flex flex-wrap items-center bg-white border border-gray-200 rounded-xl overflow-hidden divide-x divide-gray-200 mt-6"
+  class="flex items-stretch divide-x divide-gray-200 mt-6"
   on:submit|preventDefault={handleSearch}
 >
-  <div class="flex flex-1 min-w-0 divide-x divide-gray-200 pl-2">
+  <div
+    class="flex flex-1 min-w-0 divide-x divide-gray-200 pl-2 rounded-s-xl border border-gray-200"
+  >
     <slot />
   </div>
 
-  <div class="px-4 py-2">
+  <div class="flex items-center">
     <Button
-      variant="emerald"
-      class="rounded-none px-6 py-2 text-sm h-full whitespace-nowrap"
       type="submit"
+      variant="emerald"
+      customClass="rounded-l-none rounded-r-xl px-6 text-sm h-full whitespace-nowrap border border-emerald-600 "
     >
       <Icon icon="mdi:magnify" class="mr-2 text-base" />
       Cari Data

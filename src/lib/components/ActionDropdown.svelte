@@ -54,7 +54,6 @@
   }
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="relative inline-block text-left"
   on:mouseenter={openMain}
@@ -74,32 +73,33 @@
       <ul class="py-1 text-sm text-gray-700">
         <slot name="main" {handleAction} />
       </ul>
-
-      <ul class="py-1 text-sm text-gray-700">
-        <li class="relative" on:mouseenter={openSub} on:mouseleave={closeSub}>
-          <div
-            class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 cursor-pointer"
-          >
-            <span>Aktivasi</span>
-            <Icon icon="mdi:chevron-right" class="w-4 h-4 text-gray-400" />
-          </div>
-
-          {#if isSubOpen}
+      {#if $$slots.sub}
+        <ul class="py-1 text-sm text-gray-700">
+          <li class="relative" on:mouseenter={openSub} on:mouseleave={closeSub}>
             <div
-              bind:this={submenuEl}
-              class="absolute top-0 w-48 rounded-md border border-gray-200 bg-white shadow-md transition-all"
-              class:left-full={!showLeft}
-              class:ml-1={!showLeft}
-              class:right-full={showLeft}
-              class:mr-1={showLeft}
+              class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 cursor-pointer"
             >
-              <ul class="py-1 text-sm text-gray-700">
-                <slot name="sub" {handleAction} />
-              </ul>
+              <span>Aktivasi</span>
+              <Icon icon="mdi:chevron-right" class="w-4 h-4 text-gray-400" />
             </div>
-          {/if}
-        </li>
-      </ul>
+
+            {#if isSubOpen}
+              <div
+                bind:this={submenuEl}
+                class="absolute top-0 w-48 rounded-md border border-gray-200 bg-white shadow-md transition-all"
+                class:left-full={!showLeft}
+                class:ml-1={!showLeft}
+                class:right-full={showLeft}
+                class:mr-1={showLeft}
+              >
+                <ul class="py-1 text-sm text-gray-700">
+                  <slot name="sub" {handleAction} />
+                </ul>
+              </div>
+            {/if}
+          </li>
+        </ul>
+      {/if}
     </div>
   {/if}
 </div>

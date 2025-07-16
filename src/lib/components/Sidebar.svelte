@@ -1,6 +1,6 @@
 <script>
   import Accordion from "$components/Accordion.svelte";
-  import { sidebarMenu } from "$data/sidebarMenu";
+  import { sidebarRoute } from "$data/sidebarRoute";
   import { sidebarOpen } from "$stores/sidebar";
   import { page } from "$app/stores";
   import Icon from "@iconify/svelte";
@@ -44,7 +44,7 @@
     </div>
 
     <nav class="mt-4 flex-1 space-y-1 px-2 text-sm">
-      {#each sidebarMenu.filter((item) => !item.bottom) as item}
+      {#each sidebarRoute.filter((item) => !item.bottom) as item}
         {#if item.children}
           <Accordion
             {item}
@@ -81,7 +81,7 @@
     </nav>
 
     <div class="mt-auto px-2 space-y-1 border-t-2 border-gray-200 py-4 text-sm">
-      {#each sidebarMenu.filter((item) => item.bottom) as item}
+      {#each sidebarRoute.filter((item) => item.bottom) as item}
         <a
           href={item.href}
           class={`group flex items-center gap-3 px-3.5 py-2.5 rounded-md transition-colors duration-200 text-[14px]
@@ -116,7 +116,5 @@
     </div>
   </aside>
 
-  <main class="flex-1 overflow-y-auto bg-white p-6 space-y-6">
-    <slot />
-  </main>
+  <slot />
 </div>

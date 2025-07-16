@@ -17,7 +17,7 @@ export function renderLaporanLineChart(canvas) {
           backgroundColor: "rgba(16, 185, 129, 0.1)",
           tension: 0.4,
           fill: true,
-          pointRadius: 4,
+          pointRadius: 3,
         },
         {
           label: "Retensi",

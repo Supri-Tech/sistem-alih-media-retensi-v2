@@ -10,6 +10,11 @@ const config = {
   preprocess: sequence([preprocess(), preprocessMeltUI()]),
   kit: {
     adapter: adapter(),
+  },
+  compilerOptions: {
+    dev: true,
+    css: true,
+    enableSourcemap: true,
   }
 };
 

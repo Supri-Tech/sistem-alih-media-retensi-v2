@@ -10,10 +10,7 @@
   } = createTabs({ defaultValue: defaultTab });
 </script>
 
-<div
-  use:melt={$root}
-  class="mt-6 flex flex-col overflow-hidden rounded-2xl bg-white shadow border border-gray-200"
->
+<div use:melt={$root} class="mt-6 flex flex-col overflow-hidden bg-white">
   <div
     use:melt={$list}
     class="flex flex-wrap gap-2 px-4 pt-4 border-b border-gray-200 bg-gray-50"

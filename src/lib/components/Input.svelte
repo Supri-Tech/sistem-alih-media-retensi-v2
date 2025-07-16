@@ -6,8 +6,10 @@
   export let placeholder = "";
   export let value = "";
   export let label = "";
+  export let name = "";
   export let className = "";
   export let disabled = false;
+  export let required = false;
 
   const {
     elements: { root },
@@ -18,10 +20,10 @@
   <label
     use:melt={$root}
     for={id}
-    class="text-sm text-gray-700 font-bold"
+    class="text-sm font-semibold text-gray-700"
     data-melt-part="root"
   >
-    <span>{label}</span>
+    {label}
   </label>
 
   <input
@@ -30,8 +32,12 @@
     bind:value
     {placeholder}
     {disabled}
-    class={`h-10 w-full px-4 py-2 text-sm border border-gray-300 rounded-md
-      ${disabled ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "bg-white text-gray-800"}
+    {name}
+    {required}
+    class={`block w-full rounded-md border-gray-300 shadow-sm text-sm
+      focus:border-emerald-500 focus:ring-emerald-500
+      invalid:border-red-500 invalid:focus:border-red-500 invalid:focus:ring-red-500
+      ${disabled ? "bg-gray-100 text-gray-600 cursor-not-allowed" : "bg-white text-gray-900"}
       ${className}`}
   />
 </div>
