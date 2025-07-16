@@ -71,8 +71,11 @@ jobs:
                   key: ${{ secrets.VPS_SECRET }}
                   port: 22
                   script: |
+                      export NVM_DIR="$HOME/.nvm"
+                      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                       cd /var/www/fe-alih-media
-                      /home/supritech/.nvm/versions/node/v22.17.0/bin/npm install --omit=dev
+                      node -v
+                      npm install --omit=dev
 
             - name: Restart pm2
               uses: appleboy/ssh-action@master
