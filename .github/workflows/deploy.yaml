@@ -41,5 +41,28 @@ jobs:
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SECRET }}
                   port: 22
-                  source: "build"
+                  source: |
+                      build
+                      package.json
+                      package-lock.json
                   target: "/var/www/fe-alih-media"
+
+            - name: Install dependencies
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VPS_HOST }}
+                  username: ${{ secrets.VPS_USER }}
+                  key: ${{ secrets.VPS_SECRET }}
+                  port: 22
+                  script: |
+                      cd /var/www/fe-alih-media
+                      npm install --omit=dev
+
+            - name: Restart pm2
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VPS_HOST }}
+                  username: ${{ secrets.VPS_USER }}
+                  key: ${{ secrets.VPS_SECRET }}
+                  port: 22
+                  script: pm2 restart fe-alih-media
