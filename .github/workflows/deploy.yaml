@@ -45,7 +45,7 @@ jobs:
                       build
                       package.json
                       package-lock.json
-                  target: "/var/www/fe-alih-media"
+                  target: /var/www/fe-alih-media
 
             - name: Install dependencies
               uses: appleboy/ssh-action@master
