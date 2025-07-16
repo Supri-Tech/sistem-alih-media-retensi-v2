@@ -24,6 +24,13 @@ jobs:
             - name: Build SvelteKit
               run: npm run build
 
+            - name: Prepare deploy dir
+              run: |
+                  mkdir -p ./deploy
+                  cp -r build ./deploy/
+                  cp package.json ./deploy/
+                  cp package-lock.json ./deploy/
+
             - name: Create target directory on VPS
               uses: appleboy/ssh-action@master
               with:
@@ -41,11 +48,20 @@ jobs:
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SECRET }}
                   port: 22
-                  source: |
-                      build
-                      package.json
-                      package-lock.json
+                  source: "deploy"
                   target: /var/www/fe-alih-media
+            # - name: Upload built app
+            #   uses: appleboy/scp-action@v0.1.4
+            #   with:
+            #       host: ${{ secrets.VPS_HOST }}
+            #       username: ${{ secrets.VPS_USER }}
+            #       key: ${{ secrets.VPS_SECRET }}
+            #       port: 22
+            #       source: |
+            #           build
+            #           package.json
+            #           package-lock.json
+            #       target: /var/www/fe-alih-media
 
             - name: Install dependencies
               uses: appleboy/ssh-action@master
