@@ -26,8 +26,8 @@ jobs:
 
             - name: Prepare deploy dir
               run: |
-                  # mkdir -p ./deploy
-                  # cp -r build ./deploy/
+                  mkdir -p ./deploy
+                  cp -r build ./deploy/
                   cp package.json /var/www/fe-alih-media
                   cp package-lock.json /var/www/fe-alih-media
 
@@ -48,7 +48,7 @@ jobs:
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SECRET }}
                   port: 22
-                  source: "build"
+                  source: "deploy/*"
                   target: /var/www/fe-alih-media
             # - name: Upload built app
             #   uses: appleboy/scp-action@v0.1.4
